@@ -210,7 +210,7 @@ public class CreateAssetbundles
                 Object.DestroyImmediate(smr.gameObject);
 
             // 把骨架保存到assetbundle.
-            string assetName = name;
+            string assetName = name;// +"_characterbase";
             string bundleName = assetName + ASSETBUNDLE_EXT;
             string path = exportPath + bundleName;
 
