@@ -46,18 +46,4 @@ class FBXPostprocessor : AssetPostprocessor
             }
         }
     }
-
-    void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
-    {
-        Debug.Log("OnPostprocessModel " + assetPath);
-
-        foreach (string asset in importedAssets)
-            Debug.Log(asset);
-        foreach (string asset in deletedAssets)
-            Debug.Log(asset);
-        foreach (string asset in movedAssets)
-            Debug.Log(asset);
-        foreach (string asset in movedFromAssetPaths)
-            Debug.Log(asset);
-    }
 }

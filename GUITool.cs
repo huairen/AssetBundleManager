@@ -21,6 +21,9 @@ static class GUITool
             {
                 uiRoot = NGUITools.CreateUI(false);
                 GameObject.DontDestroyOnLoad(uiRoot.gameObject);
+                //uiRoot.camera.audio.enabled = false;
+                AudioListener al = (AudioListener)uiRoot.GetComponentInChildren<AudioListener>();
+                al.enabled = false;
             }
 
             GameObject go = NGUITools.AddChild(uiRoot.gameObject, obj as GameObject);

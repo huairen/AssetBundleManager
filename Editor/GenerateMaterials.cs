@@ -22,15 +22,19 @@ class GenerateMaterials
 
             GameObject characterFbx = (GameObject)o;
 
-            // Create directory to store generated materials.
             if (!Directory.Exists(MaterialsPath(characterFbx)))
                 Directory.CreateDirectory(MaterialsPath(characterFbx));
 
-            // Collect all textures.
             List<Texture2D> textures = EditorHelpers.CollectAll<Texture2D>(CharacterRoot(characterFbx) + "Textures");
 
-            // Create materials for each SkinnedMeshRenderer.
-            foreach (SkinnedMeshRenderer smr in characterFbx.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+            SkinnedMeshRenderer[] smrs = characterFbx.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            if(smrs.Length == 0)
+            {
+                EditorUtility.DisplayDialog("Character Generator", "No SkinnedMeshRenderer Finded. Select the characters folder in the Project pane to process all characters. Select subfolders to process specific characters.", "Ok");
+                continue;
+            }
+
+            foreach (SkinnedMeshRenderer smr in smrs)
             {
                 // Check if this SkinnedMeshRenderer has a normalmap.
                 Texture2D normalmap = null;

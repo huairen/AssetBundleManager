@@ -15,7 +15,7 @@ public class CreateAssetbundles
         if (Directory.Exists(Application.streamingAssetsPath) == false)
             Directory.CreateDirectory(Application.streamingAssetsPath);
 
-        string share_name = "Share" + ASSETBUNDLE_EXT;
+        string share_name = null;
 
         //共同依赖资源列表
         List<string> share_depList = new List<string>();
@@ -29,8 +29,16 @@ public class CreateAssetbundles
             string prefPath = AssetDatabase.GetAssetPath(obj);
             if (Directory.Exists(prefPath))
             {
-                share_name = obj.name + share_name;
+                // 将文件夹名字做为共享资源名字
+                share_name = obj.name + "Share" + ASSETBUNDLE_EXT;
                 continue;
+            }
+            else if(share_name == null)
+            {
+                // 获取上级目录做为共享资源名字
+                share_name = prefPath.Substring(0, prefPath.LastIndexOf('/'));
+                share_name = share_name.Substring(share_name.LastIndexOf('/') + 1);
+                share_name += "Share" + ASSETBUNDLE_EXT;
             }
 
             string[] depPath = AssetDatabase.GetDependencies(new string[1] { prefPath });
